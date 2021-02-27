@@ -9,6 +9,13 @@ int main() {
 	auto foo1 = foo.reshape(3, 3);
 	std::cout << foo.shape() << std::endl;
 
+	auto foo3 = foo1 * 3.4f;
+	std::cout << "foo + 1 = " << foo3 << std::endl;
+
+	nc::NdArray<int> foo4 = {1, 3, 5};
+	auto foo5 = foo4 * 100;
+	std::cout << "foo4 * 100 = " << foo5 << std::endl;
+
 	// convert dtype
 	auto foo2 = foo.astype<double>();
 	
@@ -25,6 +32,12 @@ int main() {
 	auto norm = nc::norm(foo);
 	std::cout <<"foo3" << std::endl;
 
+
+	// a[0, :] = b[0, :] in numcpp
+	auto a = nc::NdArray<float>{{1, 2}, {3, 4}};
+	auto b = a * -1.0f;
+	a.put(0, a.cSlice(), b(0, b.cSlice()));
+	std::cout <<"a: " << a << std::endl;
 
 	return 0;
 
